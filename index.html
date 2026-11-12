@@ -23,5 +23,31 @@ function csvRows(text){const rows=[];let row=[],cell='',quote=false;for(let i=0;
 function parseClickUp(text){const rows=csvRows(text.replace(/^\uFEFF/,''));if(rows.length<2)throw Error('El CSV está vacío');const head=rows[0].map(x=>x.trim().toLowerCase());const col=(...names)=>head.findIndex(x=>names.includes(x));const ni=col('task name','nombre de tarea','nombre de la tarea','name'),si=col('status','estado'),di=col('due date','fecha límite','fecha de vencimiento'),pi=col('priority','prioridad');if(ni<0||si<0)throw Error('El CSV necesita columnas Task Name y Status');const found=new Map();for(const row of rows.slice(1)){const m=(row[ni]||'').match(/\bT(0[1-9]|1[0-2])\b/i);if(!m)continue;const id=('T'+m[1]).toUpperCase();if(found.has(id))throw Error('ID duplicado: '+id);const raw=(row[si]||'').trim().toLowerCase();let estado=raw==='complete'||raw==='closed'||raw==='completado'?'Completada':raw==='in progress'||raw==='en curso'?'En curso':raw==='to do'||raw==='pendiente'?'Pendiente':raw==='blocked'||raw==='bloqueada'?'Bloqueada':null;if(!estado)throw Error('Estado desconocido en '+id+': '+raw);let fecha=(row[di]||'').trim();if(/^\d{13}$/.test(fecha))fecha=new Date(Number(fecha)).toISOString().slice(0,10);else if(/^\d{10}$/.test(fecha))fecha=new Date(Number(fecha)*1000).toISOString().slice(0,10);else if(fecha&&!/^\d{4}-\d{2}-\d{2}/.test(fecha))throw Error('Fecha no reconocida en '+id+'; exportá con formato ISO');const base=baseline[id];found.set(id,{id,nombre:(row[ni]||'').replace(/^T\d\d\s*[·-]\s*/i,''),riesgo:base.riesgo,plan:base.plan,estado,fecha,senal:(row[pi]||'').trim()||'Sin dato'});}if(found.size!==12)throw Error('Se necesitan los 12 IDs T01–T12; encontrados '+found.size);return [...found.values()].sort((a,b)=>a.id.localeCompare(b.id));}
 document.querySelector('#csv').addEventListener('change',async e=>{const msg=document.querySelector('#importacion');try{const file=e.target.files[0];if(!file)return;const parsed=parseClickUp(await file.text());tasks=parsed;msg.textContent='CSV importado en este navegador: '+file.name+'. Actualizado solo para esta sesión; no se subió al sitio.';render()}catch(error){msg.textContent='No se importó el CSV: '+error.message;}});
 document.querySelectorAll('#estado,#buscar,#corte').forEach(el=>el.addEventListener('input',render));render();
+// Only the twelve allowlisted demo IDs and operational fields are loaded.
+async function cargarInstantanea(){
+ const msg=document.querySelector('#importacion');
+ try {
+  const url='https://raw.githubusercontent.com/ivanemartinez93-cpu/tablero-continuidad-ia-demo/main/datos-demo.json?ts='+Date.now();
+  const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw Error('Sin instantánea actualizada');
+  const data=await res.json();
+  if(!Array.isArray(data.tasks)||data.tasks.length!==12||!Number.isFinite(Date.parse(data.actualizado))) throw Error('Datos incompletos');
+  const ids=new Set();
+  const updated=data.tasks.map(item=>{
+   if(!baseline[item.id]||ids.has(item.id)||!['Pendiente','En curso','Completada','Bloqueada'].includes(item.estado)) throw Error('Datos inválidos');
+   ids.add(item.id); const old=tasks.find(t=>t.id===item.id); if(!old) throw Error('ID desconocido');
+   if(item.fecha!==null&&!Number.isFinite(Date.parse(item.fecha))) throw Error('Fecha inválida');
+   const fecha=item.fecha ? new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Argentina/Buenos_Aires',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(item.fecha)).replace('T',' ') : '';
+   return {...old,estado:item.estado,fecha,senal:item.prioridad ? 'Prioridad: '+item.prioridad : 'Sin prioridad'};
+  });
+  tasks=updated.sort((a,b)=>a.id.localeCompare(b.id));
+  const fechaActualizacion=new Date(data.actualizado);
+  const horas=Math.round((Date.now()-fechaActualizacion.getTime())/3600000);
+  msg.textContent='ClickUp demo · última consulta: '+fechaActualizacion.toLocaleString('es-AR',{timeZone:'America/Argentina/Buenos_Aires'})+' (hora de Buenos Aires). '+(horas>3?'AVISO: los datos tienen más de 3 horas; revisá la automatización.':'Actualización programada aproximadamente cada hora.');
+  document.querySelector('.notice').innerHTML='<strong>Datos de demostración.</strong> Los estados, fechas y prioridades provienen de la lista de prueba de ClickUp; los nombres y riesgos pertenecen al plan académico. La línea base y los estados de riesgos son ilustrativos y requieren revisión.';
+  render();
+ } catch(e) { msg.textContent='No se pudo cargar una instantánea automática. Se muestra el ejemplo precargado; no representa el estado actual de ClickUp.'; }
+}
+cargarInstantanea();
 </script></body></html>
+
 
