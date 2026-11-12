@@ -1,0 +1,78 @@
+{
+  "fuente": "ClickUp lista de demostración",
+  "actualizado": "2026-11-12T23:31:06.137Z",
+  "tasks": [
+    {
+      "id": "T01",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T02",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T03",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T04",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T05",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T06",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T07",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T08",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T09",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T10",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T11",
+      "estado": "Pendiente",
+      "fecha": null,
+      "prioridad": null
+    },
+    {
+      "id": "T12",
+      "estado": "Pendiente",
+      "fecha": "2026-11-12T15:45:00.000Z",
+      "prioridad": "urgent"
+    }
+  ]
+}
