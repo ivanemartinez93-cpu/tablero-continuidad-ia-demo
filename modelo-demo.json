@@ -1,0 +1,167 @@
+{
+  "version": "demo-2026-11-12",
+  "alcance": "Escenario académico de práctica",
+  "aprobacion": {
+    "responsable": "Iván Martínez",
+    "fecha": "2026-11-12",
+    "alcance": "Cronograma y registro de riesgos del ejercicio; estados y mitigaciones siguen propuestos"
+  },
+  "tasks": [
+    {
+      "id": "T01",
+      "nombre": "Business case y objetivos",
+      "plan": "2026-11-13",
+      "riesgo": "R08"
+    },
+    {
+      "id": "T02",
+      "nombre": "Alcance y exclusiones",
+      "plan": "2026-11-14",
+      "riesgo": "R07"
+    },
+    {
+      "id": "T03",
+      "nombre": "Diccionario y privacidad",
+      "plan": "2026-11-15",
+      "riesgo": "R02"
+    },
+    {
+      "id": "T04",
+      "nombre": "Inventario de tareas",
+      "plan": "2026-11-16",
+      "riesgo": "R01"
+    },
+    {
+      "id": "T05",
+      "nombre": "Registro de riesgos",
+      "plan": "2026-11-17",
+      "riesgo": "R09"
+    },
+    {
+      "id": "T06",
+      "nombre": "Informe de calidad",
+      "plan": "2026-11-18",
+      "riesgo": "R04"
+    },
+    {
+      "id": "T07",
+      "nombre": "Estados y responsables",
+      "plan": "2026-11-19",
+      "riesgo": "R06"
+    },
+    {
+      "id": "T08",
+      "nombre": "Plan de respuesta",
+      "plan": "2026-11-20",
+      "riesgo": "R02"
+    },
+    {
+      "id": "T09",
+      "nombre": "Plantilla de reporte",
+      "plan": "2026-11-21",
+      "riesgo": "R06"
+    },
+    {
+      "id": "T10",
+      "nombre": "Modelo e indicadores",
+      "plan": "2026-11-22",
+      "riesgo": "R03"
+    },
+    {
+      "id": "T11",
+      "nombre": "Tablero piloto",
+      "plan": "2026-11-25",
+      "riesgo": "R05"
+    },
+    {
+      "id": "T12",
+      "nombre": "Guía de uso",
+      "plan": "2026-11-26",
+      "riesgo": "R08"
+    }
+  ],
+  "risks": [
+    [
+      "R01",
+      "Datos",
+      "Estados o fechas desactualizados",
+      "1.2.1",
+      4,
+      4,
+      "Establecer fecha de corte y revisar fuentes"
+    ],
+    [
+      "R02",
+      "Privacidad",
+      "Exposición de conversaciones privadas",
+      "1.1.3",
+      3,
+      5,
+      "Usar datos sintéticos y suspender publicaciones ante exposición"
+    ],
+    [
+      "R03",
+      "Técnico",
+      "Inaccesibilidad de Power BI",
+      "1.4.2",
+      4,
+      4,
+      "Verificar disponibilidad y preparar alternativa local"
+    ],
+    [
+      "R04",
+      "Datos",
+      "IDs duplicados o estados inválidos",
+      "1.2.3",
+      3,
+      4,
+      "Validar unicidad y catálogo de estados"
+    ],
+    [
+      "R05",
+      "Analítica",
+      "Métricas sin definición común",
+      "1.4.1",
+      3,
+      4,
+      "Definir fórmulas y retirar indicadores dudosos"
+    ],
+    [
+      "R06",
+      "Operativo",
+      "Alertas sin vigilancia",
+      "1.3.3",
+      3,
+      4,
+      "Revisar señales y probar las reglas"
+    ],
+    [
+      "R07",
+      "Alcance",
+      "Integraciones no previstas",
+      "1.1.2",
+      4,
+      3,
+      "Registrar cambios y posponer el alcance adicional"
+    ],
+    [
+      "R08",
+      "Adopción",
+      "El tablero no ayuda a retomar el proyecto",
+      "1.4.3",
+      3,
+      3,
+      "Probar recuperación y usar ficha simple si falla"
+    ],
+    [
+      "R09",
+      "Continuidad",
+      "Pérdida de fichas locales sin respaldo",
+      "1.2.2",
+      3,
+      4,
+      "Exportar copias y probar recuperación"
+    ]
+  ]
+}
+
